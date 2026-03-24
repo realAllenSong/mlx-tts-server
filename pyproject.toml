@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mlx-tts-server"
+version = "0.1.0"
+description = "OpenAI-compatible Text-to-Speech server for Apple Silicon, powered by Qwen3-TTS and MLX"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Allen Song" }]
+keywords = ["tts", "mlx", "apple-silicon", "qwen3", "text-to-speech", "openai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+    "mlx-audio>=0.2.1",
+    "soundfile>=0.12",
+    "numpy>=1.24",
+    "pydantic>=2.0",
+    "fastapi>=0.100",
+    "uvicorn[standard]>=0.20",
+    "click>=8.0",
+    "httpx>=0.24",
+    "langdetect>=1.0",
+    "python-multipart>=0.0.6",
+]
+
+[project.scripts]
+mlx-tts = "mlx_tts_server.server.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/realAllenSong/mlx-tts-server"
+Issues = "https://github.com/realAllenSong/mlx-tts-server/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mlx_tts_server"]
+
+[tool.pytest.ini_options]
+markers = ["slow: marks tests as slow (require real model download)"]
